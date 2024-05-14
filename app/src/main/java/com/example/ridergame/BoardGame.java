@@ -126,6 +126,6 @@ class BoardGame extends View
 
 
 
-
+// stam
 
 }

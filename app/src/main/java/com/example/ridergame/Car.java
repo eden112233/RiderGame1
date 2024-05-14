@@ -12,6 +12,8 @@ class Car {
     Bitmap bitmapCar;
     boolean carJump;
     Point p;
+    private static  int JUMP_HEIGHT = 400;
+
 
     public Car(float x, float y, Bitmap bitmap) {
         this.x = x;
@@ -50,13 +52,13 @@ class Car {
             carJump = true;
             isJumping = true;
             jumpHeight = y;
-            y = y - 200;
+            y = y - JUMP_HEIGHT;
         }
     }
 
     public void update() {
         if (isJumping) {
-            y += 50; // Adjust this value to control the speed of descent
+            y += JUMP_HEIGHT; // Adjust this value to control the speed of descent
             if (y >= jumpHeight) {
                 y = jumpHeight;
                 carJump = false;

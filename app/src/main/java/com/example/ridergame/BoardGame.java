@@ -95,7 +95,7 @@ class BoardGame extends View {
          super.run();//פקודה של מערכת ההפעלה שבמקרה שמוחקים את הthread כשהוא ישן היא אומרת לה תנסי להעיר את הthread, אם לא תצליחי-לפני שהתוכנית תתעופף, תבואי לcatch שיתפוס אותו
          while (true) {//לולאה אינסופית
             try {
-               sleep(700);
+               sleep(1500);
                if (isRun)
                   handler.sendEmptyMessage(0);
 

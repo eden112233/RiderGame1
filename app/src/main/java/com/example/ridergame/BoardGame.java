@@ -1,0 +1,131 @@
+package com.example.ridergame;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+//import android.graphics.Paint;
+import android.graphics.Paint;
+import android.os.Handler;
+import android.os.Message;
+import android.view.MotionEvent;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+
+class BoardGame extends View
+{
+   private Car car;
+   private Road rodeAndObstacles;
+   private Buttons jumpButton, goButton;
+   Handler handler;//מטפל - מקשר בין הthread לboardgame
+   ThreadGame threadGame;//הפנייה לthread שכתבנו
+   float m1;
+   public boolean isRun=true;
+   Paint p = new Paint();
+
+
+   public BoardGame(Context context) {
+      super(context);
+      Bitmap bitmapdiamond = BitmapFactory.decodeResource(getResources(), R.drawable.diamond);
+      Bitmap bitmapCone = BitmapFactory.decodeResource(getResources(), R.drawable.cone);
+      rodeAndObstacles = new Road(bitmapdiamond, bitmapCone);
+      m1 = rodeAndObstacles.getM();
+      Bitmap bitmapCar = BitmapFactory.decodeResource(getResources(), R.drawable.img);
+      bitmapCar = Bitmap.createScaledBitmap(bitmapCar, (int) 250, (int) 250, true);
+      car = new Car(400, 400, bitmapCar);
+      car.setM1(m1);
+      Point pPosition = rodeAndObstacles.getPosition();//המיקום שצריך להיות עכשיו של המכונית
+      car.setPosition(pPosition);
+      Bitmap bitmapjump = BitmapFactory.decodeResource(getResources(), R.drawable.jump);
+      jumpButton = new Buttons(bitmapjump, 100,100);
+      Bitmap bitmapgo = BitmapFactory.decodeResource(getResources(), R.drawable.go);
+      goButton = new Buttons(bitmapgo, 300,100);
+
+      threadGame=new ThreadGame();// יצירת עצם מהמחלקה threadgame ע"י זימון פעולה בונה
+      threadGame.start();// מריץ בתור שרד נפרד ולא במקביל עם עוד שרדים. not threadGame.run().
+
+      handler=new Handler(new Handler.Callback() {
+         @Override
+            public boolean handleMessage(@NonNull Message message) {//אני אתן לשרד הפנייה לפעולה הזאת, וכל 40 מיליסקנד הוא יקרא לפעולה זו שמטפלת בmessege
+            rodeAndObstacles.move();
+            Point pPosition = rodeAndObstacles.getPosition();//המיקום שצריך להיות עכשיו של המכונית
+            car.setPosition(pPosition);
+
+            m1 = rodeAndObstacles.getM();
+            car.setM1(m1);
+            invalidate();//מוחק את הבורד גיים וקורא לondraw
+               return false;
+            }
+         });
+   }
+
+//to do
+   @Override
+   protected void onDraw(Canvas canvas)
+   {
+      canvas.drawText("Score:",1000,4000,p);
+      super.onDraw(canvas);
+      Bitmap sky= BitmapFactory.decodeResource(getResources(),R.drawable.sky);
+      sky= Bitmap.createScaledBitmap(sky,canvas.getWidth(),canvas.getHeight(),false);
+      canvas.drawBitmap(sky,0,0,null);
+      jumpButton.draw(canvas);
+      goButton.draw(canvas);
+      rodeAndObstacles.draw(canvas);
+      car.draw(canvas);
+   }
+
+   //to do
+
+   @Override
+   public boolean onTouchEvent(MotionEvent event) {
+      if (event.getAction()==MotionEvent.ACTION_DOWN){
+         if(jumpButton.didUserTouchMe(event.getX(), event.getY()))
+         {
+            car.jump();
+         }
+         isRun=true;
+      }
+      if (event.getAction()==MotionEvent.ACTION_MOVE){
+         isRun=true;
+      }
+      if (event.getAction()==MotionEvent.ACTION_UP){
+         isRun=false;
+      }
+      invalidate();
+      return true;
+   }
+
+   public class ThreadGame extends Thread//מחלקה בתןך מחלקה=inner class
+   {
+      @Override
+      public void run() {//השרד רץ כל הזמן במקביל
+         super.run();//פקודה של מערכת ההפעלה שבמקרה שמוחקים את הthread כשהוא ישן היא אומרת לה תנסי להעיר את הthread, אם לא תצליחי-לפני שהתוכנית תתעופף, תבואי לcatch שיתפוס אותו
+         while (true)//לולאה אינסופית
+         {
+            try {
+               sleep(300);//לתת לthread לישון 40 מילישניות
+               if(isRun)
+                  //send messege every 40 millis
+               handler.sendEmptyMessage(0);//ה-thread שולח דרך הhandler לboardgame הודעה שהוא קם
+
+            } catch (InterruptedException e) //תופסת את התוכנית לפני שהיא מתעופפת
+            {
+               throw new RuntimeException(e);// הודעת שגיאה מסוג erorr
+            }
+         }
+
+      }
+
+
+
+
+
+
+   }
+
+
+
+
+
+}

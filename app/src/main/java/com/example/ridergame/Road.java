@@ -1,14 +1,19 @@
 package com.example.ridergame;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 class Road {
+    private Context context;
     private ArrayList<Point> arrayList;
     private Paint p;
     private Bitmap dim;
@@ -18,11 +23,12 @@ class Road {
     
     
 
-    public Road(Bitmap b1,Bitmap c1) //פעולה  בונה
+    public Road(Bitmap b1,Bitmap c1, Context context) //פעולה  בונה
     {
         rnd = new Random();
         this.dim = b1;
         this.conus=c1;
+        this.context = context;
         p = new Paint();//draw on the canvas
         p.setStrokeWidth(20);
 
@@ -105,8 +111,14 @@ class Road {
             arrayList.get(i).moveX();
         }
         int rndY = rnd.nextInt(3)-1;
-        if(arrayList.get(arrayList.size()-1).getY() > 1500)
+
+        int screenHeight = getScreenHeight(context);
+        if(arrayList.get(arrayList.size()-1).getY() < screenHeight / 4){
+            rndY = 1;
+        }
+        else if(arrayList.get(arrayList.size()-1).getY() > screenHeight *3/4){
             rndY = -1;
+        }
 
         float tempX= arrayList.get(arrayList.size()-1).getX() + 100;
         float tempY=(arrayList.get(arrayList.size()-1).getY() + rndY*100);
@@ -129,6 +141,13 @@ class Road {
        }
        counter++;
 
+    }
+
+    public int getScreenHeight(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.heightPixels;
     }
 
 

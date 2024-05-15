@@ -26,7 +26,7 @@ class BoardGame extends View {
       super(context);
       Bitmap bitmapdiamond = BitmapFactory.decodeResource(getResources(), R.drawable.diamond);
       Bitmap bitmapCone = BitmapFactory.decodeResource(getResources(), R.drawable.cone);
-      rodeAndObstacles = new Road(bitmapdiamond, bitmapCone);
+      rodeAndObstacles = new Road(bitmapdiamond, bitmapCone, getContext());
       m1 = rodeAndObstacles.getM();
       Bitmap bitmapCar = BitmapFactory.decodeResource(getResources(), R.drawable.img);
       bitmapCar = Bitmap.createScaledBitmap(bitmapCar, (int) 250, (int) 250, true);

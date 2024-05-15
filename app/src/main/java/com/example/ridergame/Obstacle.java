@@ -3,7 +3,7 @@ package com.example.ridergame;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-class Obstacle extends Point
+class Obstacle extends MyPoint
 {
     Bitmap bitmapCone;
     float m1;

@@ -1,4 +1,4 @@
-package com.example.ridergame;
+package com.example.ridergame.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.TextView;
+
+import com.example.ridergame.R;
 
 public class LoadingActivity extends AppCompatActivity
 {

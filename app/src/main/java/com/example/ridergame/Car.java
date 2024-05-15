@@ -3,7 +3,7 @@ package com.example.ridergame;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-class Car {
+public class Car {
     private float x;
     private float y;
     private float m1;
@@ -11,7 +11,7 @@ class Car {
     private boolean isJumping = false;
     Bitmap bitmapCar;
     boolean carJump;
-    Point p;
+    MyPoint p;
     private static  int JUMP_HEIGHT = 400;
 
 
@@ -26,7 +26,7 @@ class Car {
         this.m1 = m1;
     }
 
-    public void setPosition(Point pPosition) {
+    public void setPosition(MyPoint pPosition) {
         this.x = pPosition.getX();
         this.y = pPosition.getY() - bitmapCar.getHeight();
         if (carJump) {
@@ -65,5 +65,13 @@ class Car {
                 isJumping = false;
             }
         }
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 }

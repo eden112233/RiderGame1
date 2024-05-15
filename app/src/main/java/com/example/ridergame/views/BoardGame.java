@@ -1,18 +1,25 @@
-package com.example.ridergame;
+package com.example.ridergame.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
+import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+// import androidx.compose.ui.graphics.Paint;
 
-class BoardGame extends View {
+import com.example.ridergame.Buttons;
+import com.example.ridergame.Car;
+import com.example.ridergame.MyPoint;
+import com.example.ridergame.R;
+import com.example.ridergame.Road;
+
+public class BoardGame extends View {
    private Car car;
    private Road rodeAndObstacles;
    private Buttons jumpButton, goButton;
@@ -20,7 +27,7 @@ class BoardGame extends View {
    ThreadGame threadGame;//הפנייה לthread שכתבנו
    float m1;
    public boolean isRun = true;
-   Paint p = new Paint();
+  // Paint p = new Paint();
 
    public BoardGame(Context context) {
       super(context);
@@ -32,7 +39,7 @@ class BoardGame extends View {
       bitmapCar = Bitmap.createScaledBitmap(bitmapCar, (int) 250, (int) 250, true);
       car = new Car(400, 400, bitmapCar);
       car.setM1(m1);
-      Point pPosition = rodeAndObstacles.getPosition();
+      MyPoint pPosition = rodeAndObstacles.getPosition();
       car.setPosition(pPosition);
       Bitmap bitmapjump = BitmapFactory.decodeResource(getResources(), R.drawable.jump);
       jumpButton = new Buttons(bitmapjump, 100, 100);
@@ -46,7 +53,7 @@ class BoardGame extends View {
          @Override
          public boolean handleMessage(@NonNull Message message) {
             rodeAndObstacles.move();
-            Point pPosition = rodeAndObstacles.getPosition();
+            MyPoint pPosition = rodeAndObstacles.getPosition();
             car.setPosition(pPosition);
 
             m1 = rodeAndObstacles.getM();
@@ -60,7 +67,7 @@ class BoardGame extends View {
 
    @Override
    protected void onDraw(Canvas canvas) {
-      canvas.drawText("Score:", 1000, 4000, p);
+      //canvas.drawText("Score:", 1000, 4000, p);
       super.onDraw(canvas);
       Bitmap sky = BitmapFactory.decodeResource(getResources(), R.drawable.sky);
       sky = Bitmap.createScaledBitmap(sky, canvas.getWidth(), canvas.getHeight(), false);
@@ -69,6 +76,8 @@ class BoardGame extends View {
       goButton.draw(canvas);
       rodeAndObstacles.draw(canvas);
       car.draw(canvas);
+
+     // road.checkCollision(car);
    }
 
    @Override

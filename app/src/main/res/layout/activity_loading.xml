@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/lockscreen"
     android:orientation="vertical"
-    tools:context=".LoadingActivity">
+    tools:context=".activities.LoadingActivity">
 
 
     <TextView

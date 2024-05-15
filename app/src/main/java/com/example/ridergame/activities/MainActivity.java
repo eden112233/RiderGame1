@@ -1,16 +1,10 @@
-package com.example.ridergame;
+package com.example.ridergame.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -18,9 +12,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.example.ridergame.R;
 
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, View.OnClickListener {
 

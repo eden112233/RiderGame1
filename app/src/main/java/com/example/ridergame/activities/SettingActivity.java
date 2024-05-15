@@ -1,8 +1,10 @@
-package com.example.ridergame;
+package com.example.ridergame.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.ridergame.R;
 
 public class SettingActivity extends AppCompatActivity {
 

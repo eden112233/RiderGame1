@@ -3,9 +3,7 @@ package com.example.ridergame;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-import java.util.Random;
-
-class Diamond extends Point
+class Diamond extends MyPoint
 {
     Bitmap bitmapdiamond;
     float m1;

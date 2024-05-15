@@ -1,13 +1,11 @@
 package com.example.ridergame;
 
-import java.util.ArrayList;
-
-class Point
+public class MyPoint
 {
    protected float x;
    protected float y;
 
-   public Point(float x, float y) {
+   public MyPoint(float x, float y) {
       this.x = x;
       this.y = y;
    }

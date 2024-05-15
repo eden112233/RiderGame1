@@ -47,7 +47,7 @@ public class Car {
         return bitmapCar.getHeight();
     }
 
-    public void jump() {
+    public void jump() { // called via button click
         if (!isJumping) {
             carJump = true;
             isJumping = true;
@@ -56,7 +56,7 @@ public class Car {
         }
     }
 
-    public void update() {
+    public void update() { // happens automatically by the game loop
         if (isJumping) {
             y += JUMP_HEIGHT; // Adjust this value to control the speed of descent
             if (y >= jumpHeight) {

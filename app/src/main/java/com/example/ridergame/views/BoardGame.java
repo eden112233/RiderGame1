@@ -27,7 +27,7 @@ public class BoardGame extends View {
    ThreadGame threadGame;//הפנייה לthread שכתבנו
    float m1;
    public boolean isRun = true;
-  // Paint p = new Paint();
+   private int score = 0;
 
    public BoardGame(Context context) {
       super(context);
@@ -59,10 +59,19 @@ public class BoardGame extends View {
             m1 = rodeAndObstacles.getM();
             car.setM1(m1);
             car.update();  // Update car position before redrawing
+
+            if(rodeAndObstacles.checkCollision(car)){
+               updateScore();
+            }
+
             invalidate(); //מוחק את הבורד גיים וקורא לondraw
             return false;
          }
       });
+   }
+
+   private void updateScore() {
+      score += 1;
    }
 
    @Override
@@ -76,8 +85,7 @@ public class BoardGame extends View {
       goButton.draw(canvas);
       rodeAndObstacles.draw(canvas);
       car.draw(canvas);
-
-     // road.checkCollision(car);
+      canvas.drawText("Score: " + score, 100, 100, new android.graphics.Paint());
    }
 
    @Override

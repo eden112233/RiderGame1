@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
@@ -28,6 +29,7 @@ public class BoardGame extends View {
    float m1;
    public boolean isRun = true;
    private int score = 0;
+   Paint p;
 
    public BoardGame(Context context) {
       super(context);
@@ -43,11 +45,10 @@ public class BoardGame extends View {
       car.setPosition(pPosition);
       Bitmap bitmapjump = BitmapFactory.decodeResource(getResources(), R.drawable.jump);
       jumpButton = new Buttons(bitmapjump, 100, 100);
-      Bitmap bitmapgo = BitmapFactory.decodeResource(getResources(), R.drawable.go);
-      goButton = new Buttons(bitmapgo, 300, 100);
-
       threadGame=new ThreadGame();// יצירת עצם מהמחלקה threadgame ע"י זימון פעולה בונה
       threadGame.start();// מריץ בתור שרד נפרד ולא במקביל עם עוד שרדים. not threadGame.run().
+      p = new Paint();
+      p.setTextSize(100);
 
       handler = new Handler(new Handler.Callback() {
          @Override
@@ -76,16 +77,17 @@ public class BoardGame extends View {
 
    @Override
    protected void onDraw(Canvas canvas) {
-      //canvas.drawText("Score:", 1000, 4000, p);
-      super.onDraw(canvas);
+
+            super.onDraw(canvas);
       Bitmap sky = BitmapFactory.decodeResource(getResources(), R.drawable.sky);
       sky = Bitmap.createScaledBitmap(sky, canvas.getWidth(), canvas.getHeight(), false);
       canvas.drawBitmap(sky, 0, 0, null);
       jumpButton.draw(canvas);
-      goButton.draw(canvas);
       rodeAndObstacles.draw(canvas);
       car.draw(canvas);
       canvas.drawText("Score: " + score, 100, 100, new android.graphics.Paint());
+      canvas.drawText("Score:" + score, 100, 100, p);
+
    }
 
    @Override

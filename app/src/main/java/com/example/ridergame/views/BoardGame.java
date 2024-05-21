@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MotionEvent;
@@ -30,9 +32,17 @@ public class BoardGame extends View {
    public boolean isRun = true;
    private int score = 0;
    Paint p;
+   SoundPool soundPool;
+   int soundbuy, sounddiamond, soundwelcome,soundfail;
+   boolean flag=true;
+
 
    public BoardGame(Context context) {
       super(context);
+      soundPool=new SoundPool(3, AudioManager.STREAM_MUSIC,0);
+      sounddiamond= soundPool.load(this.getContext(),R.raw.diamond,1);
+      soundfail= soundPool.load(this.getContext(),R.raw.fail,1);
+
       Bitmap bitmapdiamond = BitmapFactory.decodeResource(getResources(), R.drawable.diamond);
       Bitmap bitmapCone = BitmapFactory.decodeResource(getResources(), R.drawable.cone);
       rodeAndObstacles = new Road(bitmapdiamond, bitmapCone, getContext());
@@ -44,7 +54,8 @@ public class BoardGame extends View {
       MyPoint pPosition = rodeAndObstacles.getPosition();
       car.setPosition(pPosition);
       Bitmap bitmapjump = BitmapFactory.decodeResource(getResources(), R.drawable.jump);
-      jumpButton = new Buttons(bitmapjump, 100, 100);
+      bitmapjump=Bitmap.createScaledBitmap(bitmapjump,200,200,true);
+      jumpButton = new Buttons(bitmapjump, 100, 2300);
       threadGame=new ThreadGame();// יצירת עצם מהמחלקה threadgame ע"י זימון פעולה בונה
       threadGame.start();// מריץ בתור שרד נפרד ולא במקביל עם עוד שרדים. not threadGame.run().
       p = new Paint();
@@ -61,8 +72,14 @@ public class BoardGame extends View {
             car.setM1(m1);
             car.update();  // Update car position before redrawing
 
-            if(rodeAndObstacles.checkCollision(car)){
+            if(rodeAndObstacles.checkCollisionD(car)){
+               soundPool.play(sounddiamond,1,1,0,0,1);
                updateScore();
+
+            }
+            if (rodeAndObstacles.checkCollisionC(car)){
+               //soundPool.play(soundfail,1,1,0,0,1);
+               //TODO: custom dialog
             }
 
             invalidate(); //מוחק את הבורד גיים וקורא לondraw
@@ -90,6 +107,10 @@ public class BoardGame extends View {
 
    }
 
+   public SoundPool Ting() {
+      return soundPool;
+   }
+
    @Override
    public boolean onTouchEvent(MotionEvent event) {
       if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -114,7 +135,7 @@ public class BoardGame extends View {
          super.run();//פקודה של מערכת ההפעלה שבמקרה שמוחקים את הthread כשהוא ישן היא אומרת לה תנסי להעיר את הthread, אם לא תצליחי-לפני שהתוכנית תתעופף, תבואי לcatch שיתפוס אותו
          while (true) {//לולאה אינסופית
             try {
-               sleep(1500);
+               sleep(450);
                if (isRun)
                   handler.sendEmptyMessage(0);
 
@@ -124,4 +145,12 @@ public class BoardGame extends View {
          }
       }
    }
-}
+
+   //TODO: ONDESTROY?
+   //protected void onDestroy(){// לשחרר משאבים
+     // super.onDestroy();
+      //soundPool.release();
+     // soundPool = null;
+      //}
+   }
+

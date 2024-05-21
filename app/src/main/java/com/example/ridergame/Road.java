@@ -18,69 +18,65 @@ public class Road {
     private Bitmap conus;
     Random rnd;
     int counter = 0;
-    
-    
 
-    public Road(Bitmap b1,Bitmap c1, Context context) //פעולה  בונה
+
+    public Road(Bitmap b1, Bitmap c1, Context context) //פעולה  בונה
     {
         rnd = new Random();
         this.dim = b1;
-        this.conus=c1;
+        this.conus = c1;
         this.context = context;
         p = new Paint();//draw on the canvas
         p.setStrokeWidth(20);
 
         arrayList = new ArrayList<>();
-        MyPoint p0= new MyPoint(0,1100);
+        MyPoint p0 = new MyPoint(0, 1100);
         arrayList.add(p0);
-        MyPoint p1=new MyPoint(100,1200);
+        MyPoint p1 = new MyPoint(100, 1200);
         arrayList.add(p1);
-        MyPoint p2=new MyPoint(200,1200);
+        MyPoint p2 = new MyPoint(200, 1200);
         arrayList.add(p2);
 /*        Diamond d1=new Diamond(300, 1200, b1,0);
         arrayList.add(d1);*/
-        MyPoint p4=new MyPoint(400,1200);
+        MyPoint p4 = new MyPoint(400, 1200);
         arrayList.add(p4);
         //Obstacle cone=new Obstacle(500, 1300, c1,0);
         //arrayList.add(cone);
-        MyPoint p6=new MyPoint(500,1400);
+        MyPoint p6 = new MyPoint(500, 1400);
         arrayList.add(p6);
-        MyPoint p7=new MyPoint(600,1500);
+        MyPoint p7 = new MyPoint(600, 1500);
         arrayList.add(p7);
-        MyPoint p8=new MyPoint(700,1600);
+        MyPoint p8 = new MyPoint(700, 1600);
         arrayList.add(p8);
-        MyPoint p9= new MyPoint(800,1700);
+        MyPoint p9 = new MyPoint(800, 1700);
         arrayList.add(p9);
     }
 
 
-
-    public void draw(Canvas canvas)
-    {
-        for (int i = 0; i < arrayList.size()-1; i++)
-        {
-            canvas.drawLine(arrayList.get(i).getX(),arrayList.get(i).getY(),arrayList.get(i+1).getX(),arrayList.get(i+1).getY(),p);
-            if(arrayList.get(i) instanceof Diamond)
+    public void draw(Canvas canvas) {
+        for (int i = 0; i < arrayList.size() - 1; i++) {
+            canvas.drawLine(arrayList.get(i).getX(), arrayList.get(i).getY(), arrayList.get(i + 1).getX(), arrayList.get(i + 1).getY(), p);
+            if (arrayList.get(i) instanceof Diamond)
                 ((Diamond) arrayList.get(i)).draw(canvas);
-            if(arrayList.get(i) instanceof Obstacle)
+            if (arrayList.get(i) instanceof Obstacle)
                 ((Obstacle) arrayList.get(i)).draw(canvas);
         }
     }
 
-    public float getM ()//שיפוע בין 2 נקןדות על הכביש
+    public float getM()//שיפוע בין 2 נקןדות על הכביש
     {
-        if(arrayList.get(1) instanceof Diamond)
+        if (arrayList.get(1) instanceof Diamond)
             return 0;
-        if(arrayList.get(1) instanceof Obstacle)
+        if (arrayList.get(1) instanceof Obstacle)
             return 0;
-        float y = arrayList.get(0).getY()-arrayList.get(1).getY();
-        float x=((arrayList.get(0).getX()-arrayList.get(1).getX()));
-        float m1 =  (y/x);
-        if(m1 == 1)
+        float y = arrayList.get(0).getY() - arrayList.get(1).getY();
+        float x = ((arrayList.get(0).getX() - arrayList.get(1).getX()));
+        float m1 = (y / x);
+        if (m1 == 1)
             return 45;
-        if(m1 == 0)
+        if (m1 == 0)
             return 0;
-        if(m1 == -1)
+        if (m1 == -1)
             return -45;
         return m1;
 
@@ -88,9 +84,9 @@ public class Road {
 
     public MyPoint getPosition()//מיקום של נקודה על הכביש
     {
-        float xPosition=arrayList.get(0).getX();
-        float yPosition=arrayList.get(0).getY();
-        MyPoint pPosition=new MyPoint(xPosition,yPosition);
+        float xPosition = arrayList.get(0).getX();
+        float yPosition = arrayList.get(0).getY();
+        MyPoint pPosition = new MyPoint(xPosition, yPosition);
         return pPosition;
     }
 
@@ -98,46 +94,44 @@ public class Road {
     public void move() {
         //DeleteFirstCell();
         arrayList.remove(0);
-        if (arrayList.get(0) instanceof Diamond){
+        if (arrayList.get(0) instanceof Diamond) {
             arrayList.remove(0);
         }
-        if (arrayList.get(0) instanceof Obstacle){
+        if (arrayList.get(0) instanceof Obstacle) {
             arrayList.remove(0);
         }
-        for (int i = 0; i < arrayList.size(); i++)
-        {
+        for (int i = 0; i < arrayList.size(); i++) {
             arrayList.get(i).moveX();
         }
-        int rndY = rnd.nextInt(3)-1;
+        int rndY = rnd.nextInt(3) - 1;
 
         int screenHeight = getScreenHeight(context);
-        if(arrayList.get(arrayList.size()-1).getY() < screenHeight / 4){
+        if (arrayList.get(arrayList.size() - 1).getY() < screenHeight / 4) {
             rndY = 1;
-        }
-        else if(arrayList.get(arrayList.size()-1).getY() > screenHeight *3/4){
+        } else if (arrayList.get(arrayList.size() - 1).getY() > screenHeight * 3 / 4) {
             rndY = -1;
         }
 
-        float tempX= arrayList.get(arrayList.size()-1).getX() + 100;
-        float tempY=(arrayList.get(arrayList.size()-1).getY() + rndY*100);
-        MyPoint ppp=new MyPoint(tempX,tempY);
+        float tempX = arrayList.get(arrayList.size() - 1).getX() + 100;
+        float tempY = (arrayList.get(arrayList.size() - 1).getY() + rndY * 100);
+        MyPoint ppp = new MyPoint(tempX, tempY);
         arrayList.add(ppp);
 
         int randomNumber = 4 + rnd.nextInt(5); // 4 to 8
 
-       if(counter % randomNumber == 0)//יהלום
-       {
-            Diamond d =new Diamond(tempX ,tempY,dim,0);
-           arrayList.add(d);
+        if (counter % randomNumber == 0)//יהלום
+        {
+            Diamond d = new Diamond(tempX, tempY, dim, 0);
+            arrayList.add(d);
         }
 
 
-      if(counter % (randomNumber+2) ==0 && counter%5!=0)//קונוס
+        if (counter % (randomNumber + 2) == 0 && counter % 5 != 0)//קונוס
         {
-        Obstacle b =new Obstacle(tempX ,tempY,conus,0);
-       arrayList.add(b);
-       }
-       counter++;
+            Obstacle b = new Obstacle(tempX, tempY, conus, 0);
+            arrayList.add(b);
+        }
+        counter++;
 
     }
 
@@ -148,11 +142,11 @@ public class Road {
         return displayMetrics.heightPixels;
     }
 
-    public boolean checkCollision(Car car) {
+    public boolean checkCollisionD(Car car) {
         for (int i = 0; i < arrayList.size(); i++) {
             if (arrayList.get(i) instanceof Diamond) {
                 Diamond diamond = (Diamond) arrayList.get(i);
-                if (isColliding(car, diamond)) {
+                if (isCollidingCarDiamond(car, diamond)) {
                     // Handle the collision (e.g., remove diamond, update score)
                     arrayList.remove(diamond);
                     return true;
@@ -162,7 +156,23 @@ public class Road {
         return false;
     }
 
-    private boolean isColliding(Car car, Diamond diamond) {
+    public boolean checkCollisionC(Car car) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) instanceof Obstacle) {
+                Obstacle cone = (Obstacle) arrayList.get(i);
+                if (isCollidingCarCone(car, cone)) {
+
+                    // Handle the collision (e.g., remove diamond, update score)
+                    //arrayList.remove(cone);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    private boolean isCollidingCarDiamond(Car car, Diamond diamond) {
         float carLeft = car.getX();
         float carRight = car.getX() + car.bitmapCar.getWidth();
         float carTop = car.getY();
@@ -176,6 +186,20 @@ public class Road {
         return carRight > diamondLeft && carLeft < diamondRight &&
                 carBottom > diamondTop && carTop < diamondBottom;
     }
+
+    private boolean isCollidingCarCone(Car car, Obstacle cone) {
+        float carLeft = car.getX();
+        float carRight = car.getX() + car.bitmapCar.getWidth();
+        float carTop = car.getY();
+        float carBottom = car.getY() + car.bitmapCar.getHeight();
+
+        float coneLeft = cone.getX();
+        float coneRight = cone.getX() + cone.bitmapCone.getWidth();
+        float coneTop = cone.getY() - cone.bitmapCone.getHeight();
+        float coneBottom = cone.getY();
+        return carRight > coneLeft && carLeft < coneRight &&
+                    carBottom > coneTop && carTop < coneBottom;
+        }
 
 
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -17,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.ridergame.R;
 
-public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, View.OnClickListener{
 
     ImageButton btnPlay;
     Button btnInst;
@@ -47,9 +48,8 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         btnSet.setOnClickListener(this);
         btnShop = findViewById(R.id.btnShop);
         btnShop.setOnClickListener(this);
-
-
     }
+
 
     //override on touch event
     @Override
@@ -108,12 +108,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
 
         }
-
-
-
-
-
-
         return super.onTouchEvent(event);
     }
 

@@ -3,6 +3,7 @@ package com.example.ridergame.views;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -24,6 +25,7 @@ import com.example.ridergame.Car;
 import com.example.ridergame.MyPoint;
 import com.example.ridergame.R;
 import com.example.ridergame.Road;
+import com.example.ridergame.activities.AddScoreActivity;
 
 public class BoardGame extends View {
    private Car car;
@@ -99,7 +101,9 @@ public class BoardGame extends View {
               .setMessage("You have hit an obstacle. Game Over!")
               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                  public void onClick(DialogInterface dialog, int which) {
-                    // Handle the OK button click here if needed
+                    Intent intent = new Intent(getContext(), AddScoreActivity.class);
+                    intent.putExtra("score", score);
+                    getContext().startActivity(intent);
                  }
               })
               .setIcon(android.R.drawable.ic_dialog_alert)

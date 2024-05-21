@@ -1,6 +1,8 @@
 package com.example.ridergame.views;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,6 +12,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -35,7 +38,7 @@ public class BoardGame extends View {
    SoundPool soundPool;
    int soundbuy, sounddiamond, soundwelcome,soundfail;
    boolean flag=true;
-
+   private boolean playIsOn = true;
 
    public BoardGame(Context context) {
       super(context);
@@ -79,13 +82,28 @@ public class BoardGame extends View {
             }
             if (rodeAndObstacles.checkCollisionC(car)){
                //soundPool.play(soundfail,1,1,0,0,1);
-               //TODO: custom dialog
+               playIsOn = false; // stop game
+               showGameOverDialog();
+               Log.d("BoardGame", "checkCollisionC: ");
             }
 
             invalidate(); //מוחק את הבורד גיים וקורא לondraw
             return false;
          }
       });
+   }
+
+   private void showGameOverDialog() {
+      new AlertDialog.Builder(getContext())
+              .setTitle("Game Over")
+              .setMessage("You have hit an obstacle. Game Over!")
+              .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                 public void onClick(DialogInterface dialog, int which) {
+                    // Handle the OK button click here if needed
+                 }
+              })
+              .setIcon(android.R.drawable.ic_dialog_alert)
+              .show();
    }
 
    private void updateScore() {
@@ -133,7 +151,7 @@ public class BoardGame extends View {
       @Override
       public void run() {//השרד רץ כל הזמן במקביל
          super.run();//פקודה של מערכת ההפעלה שבמקרה שמוחקים את הthread כשהוא ישן היא אומרת לה תנסי להעיר את הthread, אם לא תצליחי-לפני שהתוכנית תתעופף, תבואי לcatch שיתפוס אותו
-         while (true) {//לולאה אינסופית
+         while (playIsOn) {//לולאה אינסופית
             try {
                sleep(450);
                if (isRun)

@@ -12,7 +12,7 @@ public class Car {
     Bitmap bitmapCar;
     boolean carJump;
     MyPoint p;
-    private static  int JUMP_HEIGHT = 400;
+    private static  int JUMP_HEIGHT = 1000;
 
 
     public Car(float x, float y, Bitmap bitmap) {
@@ -73,5 +73,9 @@ public class Car {
 
     public float getY() {
         return y;
+    }
+
+    public boolean isJumping() {
+        return isJumping;
     }
 }

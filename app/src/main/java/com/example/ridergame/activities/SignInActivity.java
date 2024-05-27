@@ -17,7 +17,7 @@ import com.example.ridergame.User;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends BaseActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button loginButton, signUpButton;
@@ -25,9 +25,9 @@ public class SignInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_in);
+        super.onCreate(savedInstanceState);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -35,13 +35,19 @@ public class SignInActivity extends AppCompatActivity {
             return insets;
         });
 
+        db = FirebaseFirestore.getInstance();
+    }
+
+    @Override
+    protected void initializeViews() {
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
         loginButton = findViewById(R.id.login_button);
         signUpButton = findViewById(R.id.sign_up_button);
+    }
 
-        db = FirebaseFirestore.getInstance();
-
+    @Override
+    protected void setListeners() {
         loginButton.setOnClickListener(v -> {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
@@ -72,7 +78,7 @@ public class SignInActivity extends AppCompatActivity {
                             // Save user data or do something with the user object
                             Toast.makeText(SignInActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
-                            // TODO save user in vaseactivity
+                            currentUser = user;
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             // intent.putExtra("user", user);
                             startActivity(intent);

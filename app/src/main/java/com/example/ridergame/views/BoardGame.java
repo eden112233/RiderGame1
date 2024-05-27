@@ -26,6 +26,7 @@ import com.example.ridergame.MyPoint;
 import com.example.ridergame.R;
 import com.example.ridergame.Road;
 import com.example.ridergame.activities.AddScoreActivity;
+import com.example.ridergame.activities.GameActivity;
 
 public class BoardGame extends View {
    private Car car;
@@ -43,8 +44,11 @@ public class BoardGame extends View {
    private boolean playIsOn = true;
    private int gameSleep = 700;
 
+   private Context context;
+
    public BoardGame(Context context) {
       super(context);
+      this.context = context;
       soundPool=new SoundPool(3, AudioManager.STREAM_MUSIC,0);
       sounddiamond= soundPool.load(this.getContext(),R.raw.diamond,1);
       soundfail= soundPool.load(this.getContext(),R.raw.fail,1);
@@ -107,6 +111,7 @@ public class BoardGame extends View {
                     Intent intent = new Intent(getContext(), AddScoreActivity.class);
                     intent.putExtra("score", score);
                     getContext().startActivity(intent);
+                    ((GameActivity)context).finish();
                  }
               })
               .setIcon(android.R.drawable.ic_dialog_alert)

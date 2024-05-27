@@ -43,6 +43,7 @@ public class BoardGame extends View {
    boolean flag=true;
    private boolean playIsOn = true;
    private int gameSleep = 700;
+   // דאשצ
 
    private Context context;
 

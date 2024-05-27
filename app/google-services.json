@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "69881675474",
+    "project_id": "ridergame-2831e",
+    "storage_bucket": "ridergame-2831e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69881675474:android:e42f5d30db58eb1af1770b",
+        "android_client_info": {
+          "package_name": "com.example.ridergame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcHxp5c8RgIRPOjvB-6yJFV7JtIjyuUvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

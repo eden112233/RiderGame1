@@ -45,7 +45,7 @@ public class LoadingActivity extends AppCompatActivity
 
             public void onFinish()
             {
-                Intent i = new Intent(LoadingActivity.this, MainActivity.class);
+                Intent i = new Intent(LoadingActivity.this, SignInActivity.class);
                 startActivity(i);
             }
         }.start();

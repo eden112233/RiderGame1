@@ -42,11 +42,13 @@ public class BoardGame extends View {
    int soundbuy, sounddiamond, soundwelcome,soundfail;
    boolean flag=true;
    private boolean playIsOn = true;
-   Context context;
+   private int gameSleep = 700;
+
+   private Context context;
 
    public BoardGame(Context context) {
       super(context);
-      this.context=context;
+      this.context = context;
       soundPool=new SoundPool(3, AudioManager.STREAM_MUSIC,0);
       sounddiamond= soundPool.load(this.getContext(),R.raw.diamond,1);
       soundfail= soundPool.load(this.getContext(),R.raw.fail,1);
@@ -63,7 +65,7 @@ public class BoardGame extends View {
       car.setPosition(pPosition);
       Bitmap bitmapjump = BitmapFactory.decodeResource(getResources(), R.drawable.jump);
       bitmapjump=Bitmap.createScaledBitmap(bitmapjump,200,200,true);
-      jumpButton = new Buttons(bitmapjump, 100, 2300);
+      jumpButton = new Buttons(bitmapjump, 100, 100);
       threadGame=new ThreadGame();// יצירת עצם מהמחלקה threadgame ע"י זימון פעולה בונה
       threadGame.start();// מריץ בתור שרד נפרד ולא במקביל עם עוד שרדים. not threadGame.run().
       p = new Paint();
@@ -74,7 +76,10 @@ public class BoardGame extends View {
          public boolean handleMessage(@NonNull Message message) {
             rodeAndObstacles.move();
             MyPoint pPosition = rodeAndObstacles.getPosition();
-            car.setPosition(pPosition);
+            if(! car.isJumping()){
+               car.setPosition(pPosition);
+            }
+
             m1 = rodeAndObstacles.getM();
             car.setM1(m1);
             car.update();  // Update car position before redrawing
@@ -120,7 +125,7 @@ public class BoardGame extends View {
    @Override
    protected void onDraw(Canvas canvas) {
 
-      super.onDraw(canvas);
+            super.onDraw(canvas);
       Bitmap sky = BitmapFactory.decodeResource(getResources(), R.drawable.sky);
       sky = Bitmap.createScaledBitmap(sky, canvas.getWidth(), canvas.getHeight(), false);
       canvas.drawBitmap(sky, 0, 0, null);
@@ -141,7 +146,6 @@ public class BoardGame extends View {
       if (event.getAction() == MotionEvent.ACTION_DOWN) {
          if (jumpButton.didUserTouchMe(event.getX(), event.getY())) {
             car.jump();
-            rodeAndObstacles.move();
          }
          isRun = true;
       }
@@ -161,7 +165,7 @@ public class BoardGame extends View {
          super.run();//פקודה של מערכת ההפעלה שבמקרה שמוחקים את הthread כשהוא ישן היא אומרת לה תנסי להעיר את הthread, אם לא תצליחי-לפני שהתוכנית תתעופף, תבואי לcatch שיתפוס אותו
          while (playIsOn) {//לולאה אינסופית
             try {
-               sleep(900);
+               sleep(gameSleep);
                if (isRun)
                   handler.sendEmptyMessage(0);
 
@@ -172,5 +176,11 @@ public class BoardGame extends View {
       }
    }
 
+   //TODO: ONDESTROY?
+   //protected void onDestroy(){// לשחרר משאבים
+     // super.onDestroy();
+      //soundPool.release();
+     // soundPool = null;
+      //}
    }
 

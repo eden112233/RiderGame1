@@ -31,7 +31,7 @@ import com.example.ridergame.activities.GameActivity;
 public class BoardGame extends View {
    private Car car;
    private Road rodeAndObstacles;
-   private Buttons jumpButton, goButton;
+   private Buttons jumpButton;
    Handler handler;//מטפל - מקשר בין הthread לboardgame
    ThreadGame threadGame;//הפנייה לthread שכתבנו
    float m1;
@@ -43,7 +43,7 @@ public class BoardGame extends View {
    boolean flag=true;
    private boolean playIsOn = true;
    private int gameSleep = 700;
-   // דאשצ
+
 
    private Context context;
 
@@ -55,10 +55,10 @@ public class BoardGame extends View {
       soundfail= soundPool.load(this.getContext(),R.raw.fail,1);
 
       Bitmap bitmapdiamond = BitmapFactory.decodeResource(getResources(), R.drawable.diamond);
-      Bitmap bitmapCone = BitmapFactory.decodeResource(getResources(), R.drawable.cone);
-      rodeAndObstacles = new Road(bitmapdiamond, bitmapCone, getContext());
+      Bitmap bitmapC = BitmapFactory.decodeResource(getResources(), R.drawable.candy);
+      rodeAndObstacles = new Road(bitmapdiamond, bitmapC, getContext());
       m1 = rodeAndObstacles.getM();
-      Bitmap bitmapCar = BitmapFactory.decodeResource(getResources(), R.drawable.img);
+      Bitmap bitmapCar = BitmapFactory.decodeResource(getResources(), R.drawable.carrr);
       bitmapCar = Bitmap.createScaledBitmap(bitmapCar, (int) 250, (int) 250, true);
       car = new Car(400, 400, bitmapCar);
       car.setM1(m1);
@@ -130,7 +130,7 @@ public class BoardGame extends View {
       Bitmap sky = BitmapFactory.decodeResource(getResources(), R.drawable.sky);
       sky = Bitmap.createScaledBitmap(sky, canvas.getWidth(), canvas.getHeight(), false);
       canvas.drawBitmap(sky, 0, 0, null);
-      jumpButton.draw(canvas);
+      //jumpButton.draw(canvas);
       rodeAndObstacles.draw(canvas);
       car.draw(canvas);
       canvas.drawText("Score: " + score, 100, 100, new android.graphics.Paint());

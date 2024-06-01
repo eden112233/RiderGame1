@@ -15,7 +15,7 @@ public class Road {
     private ArrayList<MyPoint> arrayList;
     private Paint p;
     private Bitmap dim;
-    private Bitmap conus;
+    private Bitmap candy;
     Random rnd;
     int counter = 0;
 
@@ -24,7 +24,7 @@ public class Road {
     {
         rnd = new Random();
         this.dim = b1;
-        this.conus = c1;
+        this.candy = c1;
         this.context = context;
         p = new Paint();//draw on the canvas
         p.setStrokeWidth(20);
@@ -40,8 +40,8 @@ public class Road {
         arrayList.add(d1);*/
         MyPoint p4 = new MyPoint(400, 1200);
         arrayList.add(p4);
-        //Obstacle cone=new Obstacle(500, 1300, c1,0);
-        //arrayList.add(cone);
+        //Obstacle candy=new Obstacle(500, 1300, c1,0);
+        //arrayList.add(candy);
         MyPoint p6 = new MyPoint(500, 1400);
         arrayList.add(p6);
         MyPoint p7 = new MyPoint(600, 1500);
@@ -128,7 +128,7 @@ public class Road {
 
         if (counter % (randomNumber + 2) == 0 && counter % 5 != 0)//קונוס
         {
-            Obstacle b = new Obstacle(tempX, tempY, conus, 0);
+            Obstacle b = new Obstacle(tempX, tempY, candy, 0);
             arrayList.add(b);
         }
         counter++;
@@ -159,11 +159,11 @@ public class Road {
     public boolean checkCollisionC(Car car) {
         for (int i = 0; i < arrayList.size(); i++) {
             if (arrayList.get(i) instanceof Obstacle) {
-                Obstacle cone = (Obstacle) arrayList.get(i);
-                if (isCollidingCarCone(car, cone)) {
+                Obstacle candy = (Obstacle) arrayList.get(i);
+                if (isCollidingCarCandy(car, candy)) {
 
                     // Handle the collision (e.g., remove diamond, update score)
-                    //arrayList.remove(cone);
+                    //arrayList.remove(candy);
                     return true;
                 }
             }
@@ -187,18 +187,18 @@ public class Road {
                 carBottom > diamondTop && carTop < diamondBottom;
     }
 
-    private boolean isCollidingCarCone(Car car, Obstacle cone) {
+    private boolean isCollidingCarCandy(Car car, Obstacle candy) {
         float carLeft = car.getX();
         float carRight = car.getX() + car.bitmapCar.getWidth();
         float carTop = car.getY();
         float carBottom = car.getY() + car.bitmapCar.getHeight();
 
-        float coneLeft = cone.getX();
-        float coneRight = cone.getX() + cone.bitmapCone.getWidth();
-        float coneTop = cone.getY() - cone.bitmapCone.getHeight();
-        float coneBottom = cone.getY();
-        return carRight > coneLeft && carLeft < coneRight &&
-                    carBottom > coneTop && carTop < coneBottom;
+        float candyLeft = candy.getX();
+        float candyRight = candy.getX() + candy.bitmapC.getWidth();
+        float candyTop = candy.getY() - candy.bitmapC.getHeight();
+        float candyBottom = candy.getY();
+        return carRight > candyLeft && carLeft < candyRight &&
+                    carBottom > candyTop && carTop < candyBottom;
         }
 
 

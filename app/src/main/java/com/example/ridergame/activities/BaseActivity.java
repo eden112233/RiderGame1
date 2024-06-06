@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.ridergame.User;
+import com.example.ridergame.model.User;
 
 public abstract class BaseActivity extends AppCompatActivity {
 

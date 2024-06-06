@@ -1,21 +1,21 @@
-package com.example.ridergame;
+package com.example.ridergame.model;
 
-public class User {
+public class UserScore {
     private String id;
     private String email;
     private String firstName;
     private String lastName;
-    private String password;
+    private long score;
 
-    public User(String id, String email, String firstName, String lastName, String password) {
+    public UserScore(String id, String email, String firstName, String lastName, int score) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
     }
 
-    // Getters and setters for each field
+    public UserScore() {}
+
     public String getId() {
         return id;
     }
@@ -48,11 +48,15 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
+    public long getScore() {
+        return score;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+/*    public void setScore(String score) {
+        this.score = Integer.parseInt(score);
+    }*/
+
+    public void setScore(long score) {
+        this.score = score;
     }
 }

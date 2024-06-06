@@ -93,5 +93,6 @@ public class SignUpActivity extends AppCompatActivity {
         for (int i = 0; i < 5; i++) {
             sb.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
         }
-        return sb.toString();    }
+        return sb.toString();
+    }
 }

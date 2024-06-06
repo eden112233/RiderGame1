@@ -36,12 +36,8 @@ public class Road {
         arrayList.add(p1);
         MyPoint p2 = new MyPoint(200, 1200);
         arrayList.add(p2);
-/*        Diamond d1=new Diamond(300, 1200, b1,0);
-        arrayList.add(d1);*/
         MyPoint p4 = new MyPoint(400, 1200);
         arrayList.add(p4);
-        //Obstacle candy=new Obstacle(500, 1300, c1,0);
-        //arrayList.add(candy);
         MyPoint p6 = new MyPoint(500, 1400);
         arrayList.add(p6);
         MyPoint p7 = new MyPoint(600, 1500);

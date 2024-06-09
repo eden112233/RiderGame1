@@ -33,5 +33,6 @@ class Obstacle extends MyPoint
         canvas.restore();
     }
 
+
 }
 

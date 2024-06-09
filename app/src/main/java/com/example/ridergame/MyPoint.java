@@ -1,5 +1,7 @@
 package com.example.ridergame;
 
+import android.graphics.Bitmap;
+
 public class MyPoint
 {
    protected float x;
@@ -29,4 +31,15 @@ public class MyPoint
    public void moveX() {
       x = x - 100;
    }
+
+//TODO:
+   public boolean didUserTouchMe(float x, float y) {
+
+   }
+
+   //public boolean didUserTouchMe(float xU, float yU, Bitmap candy) {
+     // if(xU > x && xU < x + bitmapC.getWidth() && yU>y && yU< y+bitmapC.getHeight())
+     //    return true;
+    //  return false;
+ //  }
 }

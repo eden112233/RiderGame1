@@ -198,4 +198,20 @@ public class Road {
         }
 
 
+    public boolean didUserTouchCandy(float x, float y) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) instanceof Obstacle) {
+                if(arrayList.get(i).didUserTouchMe(x,y))
+                {
+                    arrayList.remove(i);
+                    return true;
+                }
+
+            }
+
+        }
+        return false;
+
+
+    }
 }

@@ -145,8 +145,8 @@ public class BoardGame extends View {
    @Override
    public boolean onTouchEvent(MotionEvent event) {
       if (event.getAction() == MotionEvent.ACTION_DOWN) {
-         if (jumpButton.didUserTouchMe(event.getX(), event.getY())) {
-            car.jump();
+         if (rodeAndObstacles.didUserTouchCandy(event.getX(), event.getY())) {
+
          }
          isRun = true;
       }
@@ -176,6 +176,10 @@ public class BoardGame extends View {
          }
       }
    }
+
+
+
+
 
    //TODO: ONDESTROY?
    //protected void onDestroy(){// לשחרר משאבים

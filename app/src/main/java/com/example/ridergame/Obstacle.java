@@ -18,6 +18,13 @@ class Obstacle extends MyPoint
         this.m1=m1;
     }
 
+    public boolean didUserTouchMe(float xU, float yU) {
+        if((x<xU && xU<x+bitmapC.getWidth()) && (y-(bitmapC.getHeight())<yU && yU<y-(bitmapC.getHeight())+bitmapC.getHeight())){
+            return true;
+        }
+            return false;
+    }
+
     public void SetM(float m1){
         this.m1=m1;
     }

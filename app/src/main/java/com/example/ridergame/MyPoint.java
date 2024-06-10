@@ -32,10 +32,11 @@ public class MyPoint
       x = x - 100;
    }
 
-//TODO:
-   public boolean didUserTouchMe(float x, float y) {
+   //TODO:
 
-   }
+
+//TODO:
+
 
    //public boolean didUserTouchMe(float xU, float yU, Bitmap candy) {
      // if(xU > x && xU < x + bitmapC.getWidth() && yU>y && yU< y+bitmapC.getHeight())

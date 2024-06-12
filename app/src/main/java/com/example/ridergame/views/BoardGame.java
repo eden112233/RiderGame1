@@ -146,7 +146,7 @@ public class BoardGame extends View {
    public boolean onTouchEvent(MotionEvent event) {
       if (event.getAction() == MotionEvent.ACTION_DOWN) {
          if (rodeAndObstacles.didUserTouchCandy(event.getX(), event.getY())) {
-
+            score = score + 2;
          }
          isRun = true;
       }

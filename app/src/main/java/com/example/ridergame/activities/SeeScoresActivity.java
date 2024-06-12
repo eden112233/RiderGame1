@@ -13,18 +13,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.ridergame.R;
 import com.example.ridergame.ScoreAdapter;
-import com.example.ridergame.activities.BaseActivity;
 import com.example.ridergame.model.UserScore;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SeeScoresActivity extends BaseActivity {
@@ -69,6 +65,22 @@ public class SeeScoresActivity extends BaseActivity {
                 loadScores();
             }
         });
+
+        Button orderByLargeToSmallButton = findViewById(R.id.orderByLargeToSmallButton);
+        orderByLargeToSmallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortScoresAscending();
+            }
+        });
+
+        Button orderBySmallToLargeButton = findViewById(R.id.orderBySmallToLargeButton);
+        orderBySmallToLargeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortScoresDescending();
+            }
+        });
     }
 
     private void loadScores() {
@@ -83,9 +95,9 @@ public class SeeScoresActivity extends BaseActivity {
                                 .get()
                                 .addOnCompleteListener(userTask -> {
                                     if (userTask.isSuccessful()) {
-                                        for (DocumentSnapshot document : scoreDocuments) {
-                                            String userId = document.getString("id");
-                                            int score = document.getLong("score").intValue(); // Ensure correct type
+                                        for (DocumentSnapshot scoreDocument : scoreDocuments) {
+                                            String userId = scoreDocument.getString("id");
+                                            int score = scoreDocument.getLong("score").intValue(); // Ensure correct type
 
                                             for (QueryDocumentSnapshot userDocument : userTask.getResult()) {
                                                 if (userDocument.getString("id").equals(userId)) {
@@ -96,12 +108,14 @@ public class SeeScoresActivity extends BaseActivity {
                                                     // Create a UserScore object and add it to the list
                                                     UserScore userScore = new UserScore(userId, email, firstName, lastName, score);
                                                     userScoreList.add(userScore);
+
+                                                    scoreAdapter.setScores(userScoreList);
+                                                    // refresh the adapter
+                                                    scoreAdapter.notifyDataSetChanged();
                                                     break; // Break the loop once the user is found
                                                 }
                                             }
                                         }
-                                        // Notify dataset changed (if you are using an adapter)
-                                        // scoreAdapter.notifyDataSetChanged();  // Uncomment if using an adapter
                                     } else {
                                         Toast.makeText(SeeScoresActivity.this, "Failed to load user data", Toast.LENGTH_SHORT).show();
                                     }
@@ -110,5 +124,17 @@ public class SeeScoresActivity extends BaseActivity {
                         Toast.makeText(SeeScoresActivity.this, "Failed to load scores", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void sortScoresDescending() {
+        // Sort the scores in descending order, automatic calls to compare method
+        Collections.sort(userScoreList);
+        scoreAdapter.notifyDataSetChanged();
+    }
+
+    private void sortScoresAscending() {
+        Collections.sort(userScoreList, Collections.reverseOrder());
+        scoreAdapter.notifyDataSetChanged();
+        scoreAdapter.notifyDataSetChanged();
     }
 }

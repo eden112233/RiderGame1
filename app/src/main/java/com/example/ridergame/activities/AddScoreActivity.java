@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.ridergame.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 
@@ -80,21 +81,16 @@ public class AddScoreActivity extends BaseActivity {
 
     private void saveScore() {
         String id = currentUser.getId();
-        if (id.isEmpty()) {
-            Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         // Create a HashMap to store the score
         HashMap<String, Object> scoreMap = new HashMap<>();
         scoreMap.put("id", id);
         scoreMap.put("score", score);
 
-        // Save the score to Firestore
-        db.collection("scores").document(id).set(scoreMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("scores").add(scoreMap)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
+                    public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(AddScoreActivity.this, "Score saved", Toast.LENGTH_SHORT).show();
                         saveButton.setEnabled(false);
                     }

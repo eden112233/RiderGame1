@@ -39,6 +39,10 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
         return userScoreList.size();
     }
 
+    public void setScores(List<UserScore> userScoreList) {
+        this.userScoreList = userScoreList;
+    }
+
     public static class ScoreViewHolder extends RecyclerView.ViewHolder {
         TextView scoreTextView, nameTextView;
 

@@ -16,11 +16,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/orderByLargeToSmallButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Large to Small"
+        app:layout_constraintTop_toBottomOf="@id/loadScoresButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/orderBySmallToLargeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Small to Large"
+        app:layout_constraintTop_toBottomOf="@id/orderByLargeToSmallButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scoresRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/loadScoresButton"
+        app:layout_constraintTop_toBottomOf="@id/orderBySmallToLargeButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

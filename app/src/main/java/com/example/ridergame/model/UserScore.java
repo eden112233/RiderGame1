@@ -1,6 +1,6 @@
 package com.example.ridergame.model;
 
-public class UserScore {
+public class UserScore implements Comparable<UserScore>{
     private String id;
     private String email;
     private String firstName;
@@ -12,6 +12,7 @@ public class UserScore {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.score = score;
     }
 
     public UserScore() {}
@@ -58,5 +59,16 @@ public class UserScore {
 
     public void setScore(long score) {
         this.score = score;
+    }
+
+    @Override
+    public int compareTo(UserScore other) {
+        if (this.score < other.score) {
+            return -1;
+        } else if (this.score > other.score) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

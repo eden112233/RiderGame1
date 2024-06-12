@@ -27,6 +27,7 @@ import com.example.ridergame.R;
 import com.example.ridergame.Road;
 import com.example.ridergame.activities.AddScoreActivity;
 import com.example.ridergame.activities.GameActivity;
+import com.example.ridergame.service.MusicService;
 
 public class BoardGame extends View {
    private Car car;
@@ -95,12 +96,16 @@ public class BoardGame extends View {
                playIsOn = false; // stop game
                showGameOverDialog();
                Log.d("BoardGame", "checkCollisionC: ");
+
+               context.stopService(new Intent(context, MusicService.class));
+
             }
 
             invalidate(); //מוחק את הבורד גיים וקורא לondraw
             return false;
          }
       });
+
    }
 
    private void showGameOverDialog() {

@@ -2,8 +2,10 @@ package com.example.ridergame.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.ridergame.service.MusicService;
 import com.example.ridergame.views.BoardGame;
 
 public class GameActivity extends AppCompatActivity {
@@ -15,6 +17,8 @@ public class GameActivity extends AppCompatActivity {
 
         BoardGame boardgame = new BoardGame(this);
         setContentView(boardgame);
+
+        startService(new Intent(this, MusicService.class));
     }
 
 

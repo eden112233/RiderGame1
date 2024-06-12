@@ -21,11 +21,4 @@ public class Buttons
         canvas.drawBitmap(bitmap, this.x, this.y, null);
     }
 
-    public boolean didUserTouchMe(MyPoint point) {
-        float xU = point.getX();
-        float yU = point.getY();
-        if(xU > x && xU < x + bitmap.getWidth() && yU>y && yU< y+bitmap.getHeight())
-            return true;
-        return false;
-    }
 }

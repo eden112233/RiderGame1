@@ -1,4 +1,4 @@
-package com.example.ridergame;
+package com.example.ridergame.dataclasses;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

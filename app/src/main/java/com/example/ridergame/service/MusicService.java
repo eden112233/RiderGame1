@@ -1,7 +1,9 @@
 package com.example.ridergame.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
@@ -19,6 +21,8 @@ public class MusicService extends Service {
         // Initialize media player
         mediaPlayer = MediaPlayer.create(this, R.raw.mine); // Ensure you have a sample_music.mp3 file in res/raw
         mediaPlayer.setLooping(true); // Set looping
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
         Log.d(TAG, "MusicService created");
     }
 

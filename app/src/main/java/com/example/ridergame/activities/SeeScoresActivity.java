@@ -48,7 +48,7 @@ public class SeeScoresActivity extends BaseActivity {
     }
 
     @Override
-    protected void initializeViews() {
+    protected void initializeViews() { //אדפטר מקשר בין הפיירבייס לאפליקציה
         scoresRecyclerView = findViewById(R.id.scoresRecyclerView);
         scoresRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         userScoreList = new ArrayList<>();
